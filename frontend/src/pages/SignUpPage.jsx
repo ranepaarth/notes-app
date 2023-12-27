@@ -19,8 +19,16 @@ const SignUpPage = () => {
     register,
     reset,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues:{
+      userName:"",
+      email:"",
+      password:"",
+      confirmPassword:"",
+    }
+  });
 
   const [showPwd, setShowPwd] = useState(false);
   const toggleShowPwd = () => {
@@ -67,7 +75,7 @@ const SignUpPage = () => {
               error={errors?.email?.message}
               register={{ ...register("email", registerOptions.email) }}
             />
-            <EmptyLine width={"w-[85%]"} />
+            {/* <EmptyLine width={"w-[85%]"} /> */}
             <FormInput
               Icon={<HiLockClosed />}
               type={showPwd ? "text" : "password"}
@@ -77,6 +85,19 @@ const SignUpPage = () => {
               register={{ ...register("password", registerOptions.password) }}
               toggleShowPwd={toggleShowPwd}
               showPwd={showPwd}
+            />
+            <FormInput
+              Icon={<HiLockClosed />}
+              type={"password"}
+              width={"w-[70%]"}
+              placeholder={"Confirm Password"}
+              error={errors?.confirmPassword?.message}
+              register={{ ...register("confirmPassword",{
+                required:"Confirm Password is required",
+                validate: (val) => {
+                  if(watch('password') !== val) return "Password did not match"
+                }
+              }) }}
             />
             <FormSubmitBtn />
           </FormMain>
