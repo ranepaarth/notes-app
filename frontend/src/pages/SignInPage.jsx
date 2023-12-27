@@ -19,7 +19,12 @@ const SignInPage = () => {
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
   const [showPwd, setShowPwd] = useState(false);
 
   const toggleShowPwd = () => {
