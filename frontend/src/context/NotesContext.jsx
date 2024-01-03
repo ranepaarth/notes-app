@@ -18,7 +18,7 @@ const notesReducer = (state, action) => {
       };
     case "UPDATE_NOTE":
       const { updatedNote, createdAt, updatedAt, _id } = action.payload;
-      console.log(updatedNote, createdAt, updatedAt, _id);
+      // console.log(updatedNote, createdAt, updatedAt, _id);
       return {
         notes: state.notes.map((note) =>
           note._id === _id
@@ -40,7 +40,6 @@ const notesReducer = (state, action) => {
 
 const notesState = {
   notes: null,
-  trash: [],
 };
 const NotesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(notesReducer, notesState);
