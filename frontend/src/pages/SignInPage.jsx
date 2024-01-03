@@ -17,7 +17,7 @@ import useLoginUser from "../hooks/useLogin";
 import registerOptions from "./registerOptions";
 
 const SignInPage = () => {
-  const {user} = useAuth()
+  const { user } = useAuth();
   const { login, serverError, loading } = useLoginUser();
   const {
     register,
@@ -25,7 +25,7 @@ const SignInPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    mode:"onChange",
+    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",
@@ -43,7 +43,7 @@ const SignInPage = () => {
 
   return (
     <FormSection>
-      {user && <Navigate to='/mynotes'/>}
+      {user && <Navigate to="/mynotes" />}
       <FormArticle>
         <FormDiv>
           <FormPinIcon />
@@ -53,10 +53,7 @@ const SignInPage = () => {
             linkTo={"/signup"}
             linkToPage={"Create new account"}
           />
-          <FormMain
-            handleSubmit={handleSubmit}
-            onFormSubmit={onFormSubmit}
-          >
+          <FormMain handleSubmit={handleSubmit} onFormSubmit={onFormSubmit}>
             <span className="flex items-center text-sm bg-yellow-950/10 h-8 px-2 font-medium text-yellow-950/90 divide-x divide-yellow-950/40">
               <span className="px-2">test3@test.com</span>
               <span className="px-2">Test@123</span>
@@ -89,9 +86,13 @@ const SignInPage = () => {
             ) : (
               <EmptyLine width={"w-[88%]"} />
             )}
-            {
-              loading ? <h3 className="font-semibold text-yellow-950 text-sm">Logging in...</h3>:""
-            }
+            {loading ? (
+              <h3 className="font-semibold text-yellow-950 text-sm">
+                Logging in...
+              </h3>
+            ) : (
+              ""
+            )}
           </FormMain>
         </FormDiv>
       </FormArticle>
