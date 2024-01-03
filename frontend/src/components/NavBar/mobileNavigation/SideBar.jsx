@@ -1,12 +1,18 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { FaCaretDown } from "react-icons/fa";
+import { FaCaretDown, FaUserPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { TbLogin, TbLogout2 } from "react-icons/tb";
 import { NavLink } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import useLogout from "../../../hooks/useLogout";
 import NavItem from "./NavItem";
 import { navigation } from "./navigation";
 const SideBar = ({ toggleShowNav, showNav }) => {
   const [showUserOption, setShowUserOption] = useState(false);
+  const { user } = useAuth();
+  const { logout } = useLogout();
+
   const toggleShowUserOption = () => {
     setShowUserOption((prev) => !prev);
   };
@@ -33,12 +39,27 @@ const SideBar = ({ toggleShowNav, showNav }) => {
             </button>
           </div>
           <div className="flex flex-col items-center my-4">
-            {navigation.map((item) => (
-              <NavItem key={item?.page} path={item?.path} page={item?.page} />
-            ))}
+            {navigation.map((item) => {
+              // if(item.page === "my notes" && !user) return "";
+              return (
+                <NavItem key={item?.page} path={item?.path} page={item?.page} />
+              );
+            })}
           </div>
+          {user && (
+            <button
+              className="mobile-menu-item justify-center flex items-center gap-2"
+              onClick={logout}
+            >
+              <span className="text-2xl">
+                <TbLogout2 />
+              </span>
+              <span>Logout</span>
+            </button>
+          )}
         </div>
-        <div>
+
+        <div className={user ? "hidden" : "block"}>
           <button className="mobile-menu-user" onClick={toggleShowUserOption}>
             <p>User</p>
             <p
@@ -55,13 +76,20 @@ const SideBar = ({ toggleShowNav, showNav }) => {
             }`}
           >
             <NavLink to="/signup" className="user-option-item">
-              Sign Up
+              <span>
+                <FaUserPlus />
+              </span>
+              <span>Sign Up</span>
             </NavLink>
             <NavLink to="/signin" className="user-option-item">
-              Sign In
+              <span>
+                <TbLogin/>
+              </span>
+              <span>Sign In</span>
             </NavLink>
           </div>
         </div>
+
         <div className="mobile-menu-footer">
           Copyright &copy; 2023 | ranepaarth
         </div>
