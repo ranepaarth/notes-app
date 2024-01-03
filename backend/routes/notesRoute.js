@@ -7,6 +7,9 @@ const {
   updateNotesController,
   deleteNotesController,
 } = require("../controllers/notesController");
+const { requireAuth } = require("../middlewares/requireAuth");
+
+router.use(requireAuth);
 
 router.get("/", getAllNotesController).post("/", createNotesController);
 
