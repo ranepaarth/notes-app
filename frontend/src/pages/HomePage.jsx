@@ -5,7 +5,7 @@ import curlyMan from "../assets/curly-hair-man-holding-smartphone.svg";
 import starsIcon from "../assets/stars-svgrepo-com.svg";
 const HomePage = () => {
   return (
-    <div className="relative flex flex-col items-center justify-center my-auto h-[calc(100vh-72px)] text-sky-950">
+    <div className="relative flex flex-col items-center justify-center my-auto min-h-[calc(100vh-76px)] text-sky-950">
       <img
         src={starsIcon}
         alt=""
@@ -32,7 +32,7 @@ const HomePage = () => {
         <img
           src={starsIcon}
           alt=""
-          className="w-16 absolute bottom-60 right-16 rotate-180"
+          className="w-16 absolute bottom-60 right-16 rotate-180 -z-10"
         />
         <p className="py-2 text-center">Write your</p>
         <p className="py-2 text-center">thoughts down</p>
@@ -49,7 +49,7 @@ const HomePage = () => {
         alt=""
         className="w-40 md:w-60 lg:w-72 absolute bottom-0 right-0 -scale-x-100 hidden lg:block"
       />
-      <span className="text-center w-[450px] mx-5">
+      <span className="text-center w-[320px] max-w-[450px] mx-5">
         Notes is a simple to use free note taking app made with Node.Js,
         Express, MongoDB, ReactJs & TailwindCSS
       </span>
