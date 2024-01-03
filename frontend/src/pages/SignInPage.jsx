@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiLockClosed } from "react-icons/hi2";
 import { MdOutlineAlternateEmail } from "react-icons/md";
+import { Navigate } from "react-router-dom";
 import EmptyLine from "../components/UserForm/EmptyLine";
 import FormArticle from "../components/UserForm/FormArticle";
 import FormDiv from "../components/UserForm/FormDiv";
@@ -11,15 +12,20 @@ import FormMain from "../components/UserForm/FormMain";
 import FormPinIcon from "../components/UserForm/FormPinIcon";
 import FormSection from "../components/UserForm/FormSection";
 import FormSubmitBtn from "../components/UserForm/FormSubmitBtn";
+import useAuth from "../hooks/useAuth";
+import useLoginUser from "../hooks/useLogin";
 import registerOptions from "./registerOptions";
 
 const SignInPage = () => {
+  const {user} = useAuth()
+  const { login, serverError, loading } = useLoginUser();
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
   } = useForm({
+    mode:"onChange",
     defaultValues: {
       email: "",
       password: "",
@@ -30,18 +36,14 @@ const SignInPage = () => {
   const toggleShowPwd = () => {
     setShowPwd((prev) => !prev);
   };
-
   const onFormSubmit = (data) => {
-    console.log(data);
+    login(data);
     reset();
-  };
-
-  const onFormErrors = (errors) => {
-    console.log(errors);
   };
 
   return (
     <FormSection>
+      {user && <Navigate to='/mynotes'/>}
       <FormArticle>
         <FormDiv>
           <FormPinIcon />
@@ -53,7 +55,6 @@ const SignInPage = () => {
           />
           <FormMain
             handleSubmit={handleSubmit}
-            onFormErrors={onFormErrors}
             onFormSubmit={onFormSubmit}
           >
             <EmptyLine width={"w-[88%]"} />
@@ -78,7 +79,16 @@ const SignInPage = () => {
               showPwd={showPwd}
             />
             <FormSubmitBtn />
-            <EmptyLine width={"w-[88%]"} />
+            {serverError ? (
+              <span className="text-lg md:text-sm text-red-600 font-medium bg-red-500/30 px-4 py-1 rounded border border-red-700">
+                {serverError}
+              </span>
+            ) : (
+              <EmptyLine width={"w-[88%]"} />
+            )}
+            {
+              loading ? <h3 className="font-semibold text-yellow-950 text-sm">Logging in...</h3>:""
+            }
           </FormMain>
         </FormDiv>
       </FormArticle>
