@@ -2,8 +2,10 @@ import autosize from "autosize";
 import { format } from "date-fns";
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
 import { useNotes } from "../../hooks/useNotes";
 const NotesModal = () => {
+  const { user } = useAuth();
   const { handleCloseNoteModal, selectedNote, isUpdating, dispatch } =
     useNotes();
   const { register, setValue, handleSubmit } = useForm();
@@ -26,13 +28,14 @@ const NotesModal = () => {
   }
 
   const onFormSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
 
     const reqMethod = "PATCH";
     const url = `http://localhost:4000/api/notes/${selectedNote._id}`;
     const response = await fetch(url, {
       method: reqMethod,
       headers: {
+        Authorization: `Bearer ${user?.jwt}`,
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
