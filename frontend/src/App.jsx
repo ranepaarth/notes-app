@@ -1,9 +1,9 @@
 import React from "react";
-import "./global.css";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./global.css";
 import AppLayout from "./layout/AppLayout";
 import AboutPage from "./pages/AboutPage";
+import ErrorPage from "./pages/ErrorPage";
 import FAQPage from "./pages/FAQPage";
 import FeaturesPage from "./pages/FeaturesPage";
 import HomePage from "./pages/HomePage";
@@ -47,6 +47,7 @@ const App = () => {
         },
       ],
     },
+    { path: "*", element: <ErrorPage /> },
   ]);
   return <RouterProvider router={router} />;
 };
