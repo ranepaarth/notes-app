@@ -49,7 +49,7 @@ const SignInPage = () => {
           <FormPinIcon />
           <FormHeader
             heading={"Log in to your account"}
-            subheader={`Don't have an account?`}
+            subheader="Don't have an account?"
             linkTo={"/signup"}
             linkToPage={"Create new account"}
           />
@@ -57,7 +57,10 @@ const SignInPage = () => {
             handleSubmit={handleSubmit}
             onFormSubmit={onFormSubmit}
           >
-            <EmptyLine width={"w-[88%]"} />
+            <span className="flex items-center text-sm bg-yellow-950/10 h-8 px-2 font-medium text-yellow-950/90 divide-x divide-yellow-950/40">
+              <span className="px-2">test3@test.com</span>
+              <span className="px-2">Test@123</span>
+            </span>
             <FormInput
               Icon={<MdOutlineAlternateEmail />}
               type={"text"}
