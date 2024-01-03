@@ -2,7 +2,9 @@ const User = require("../models/users.models");
 const jsonwebtoken = require("jsonwebtoken");
 // a function to create a JSON web token
 const createToken = (id) => {
-  return jsonwebtoken.sign({ id },process.env.JWT_SECRET_KEY, { expiresIn: "1 days" });
+  return jsonwebtoken.sign({ id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: "1 days",
+  });
 };
 const getAllUserController = async (req, res) => {
   try {
@@ -16,8 +18,9 @@ const getAllUserController = async (req, res) => {
 const loginUserController = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.loginUser(email,password)
-    res.status(200).json({userName:user.userName});
+    const user = await User.loginUser(email, password);
+    const jwt = createToken(user._id);
+    res.status(200).json({ userName: user?.userName, jwt });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
