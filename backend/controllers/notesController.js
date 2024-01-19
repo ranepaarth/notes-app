@@ -5,7 +5,7 @@ const getAllNotesController = async (req, res) => {
     const notes = await Notes.find({ user_id }).sort({ _id: -1 });
     res.status(200).json(notes);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(404).json({ error: error.message });
   }
 };
 

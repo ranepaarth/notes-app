@@ -7,6 +7,7 @@ const requireAuth = async (req, res, next) => {
 
   if (!authorization) {
     res.status(401).json({ error: "Please Signup/Login to continue !!" });
+    return;
   }
   const authToken = authorization?.split(" ")[1];
   // console.log(authToken);
