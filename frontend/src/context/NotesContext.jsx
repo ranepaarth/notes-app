@@ -10,7 +10,7 @@ const notesReducer = (state, action) => {
       };
     case "CREATE_NEW_NOTE":
       return {
-        notes: [action.payload, ...state.notes],
+        notes: [action.payload, ...state?.notes],
       };
     case "DELETE_NOTE":
       return {
