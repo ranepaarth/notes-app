@@ -23,7 +23,7 @@ const NotesSection = () => {
 
   useEffect(() => {
     const getNotes = async () => {
-      const response = await fetch("http://localhost:4000/api/notes", {
+      const response = await fetch(`${import.meta.env.URL}/api/notes`, {
         headers: {
           Authorization: `Bearer ${user?.jwt}`,
         },
@@ -45,7 +45,7 @@ const NotesSection = () => {
 
   const deleteNote = async (note) => {
     const response = await fetch(
-      `http://localhost:4000/api/notes/${note?._id}`,
+      `${import.meta.env.VITE_API_URL}/api/notes/${note?._id}`,
       {
         method: "DELETE",
         headers: {

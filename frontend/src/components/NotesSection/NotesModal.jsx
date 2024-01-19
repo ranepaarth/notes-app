@@ -31,7 +31,7 @@ const NotesModal = () => {
     // console.log(data);
 
     const reqMethod = "PATCH";
-    const url = `http://localhost:4000/api/notes/${selectedNote._id}`;
+    const url = `${import.meta.env.VITE_API_URL}/api/notes/${selectedNote._id}`;
     const response = await fetch(url, {
       method: reqMethod,
       headers: {

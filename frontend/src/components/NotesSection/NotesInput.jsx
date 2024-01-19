@@ -28,7 +28,7 @@ const NotesInput = () => {
       return;
     }
     const reqMethod = "POST";
-    const url = "http://localhost:4000/api/notes";
+    const url = `${import.meta.env.VITE_API_URL}/api/notes`;
     const response = await fetch(url, {
       method: reqMethod,
       headers: {
@@ -56,10 +56,18 @@ const NotesInput = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <div className="flex flex-col justify-center px-8 py-8 w-full max-w-[600px]">
-        {user ? <h3 className="text-center mb-2 flex justify-center items-baseline gap-1">
-          <span className="font-medium text-yellow-950/70 text-xl">Hello</span>
-          <span className="font-semibold text-2xl text-yellow-950/90">{user?.userName}</span>
-        </h3>:""}
+        {user ? (
+          <h3 className="text-center mb-2 flex justify-center items-baseline gap-1">
+            <span className="font-medium text-yellow-950/70 text-xl">
+              Hello
+            </span>
+            <span className="font-semibold text-2xl text-yellow-950/90">
+              {user?.userName}
+            </span>
+          </h3>
+        ) : (
+          ""
+        )}
         {showTitle ? (
           <form
             className="p-2 bg-sky-950/20 rounded w-full max-w-[600px] border border-sky-950/30 shadow-xl"

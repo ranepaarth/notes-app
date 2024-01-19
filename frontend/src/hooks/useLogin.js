@@ -8,13 +8,16 @@ const useLoginUser = () => {
   const login = async (data) => {
     setServerError(null);
     setLoading(true);
-    const response = await fetch(import.meta.env.VITE_API_URL, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/users/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     const responseData = await response.json();
 
