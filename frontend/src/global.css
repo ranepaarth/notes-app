@@ -19,13 +19,44 @@ body::-webkit-scrollbar-thumb {
   background: rgb(241, 197, 84);
 }
 
-.edit-note::-webkit-scrollbar {
+.loader {
+  width: 25px;
+  height: 25px;
+  border: 5px solid rgb(8, 47, 73, 0.5);
+  border-bottom-color: rgb(8, 47, 73, 0.9);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.update-loader {
+  width: 35px;
+  height: 35px;
+  border: 5px solid rgb(253, 224, 71, 0.5);
+  border-bottom-color: rgb(253, 224, 71, 0.9);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+.note-content::-webkit-scrollbar {
   width: 10px;
 }
-.edit-note::-webkit-scrollbar-track {
+.note-content::-webkit-scrollbar-track {
   background: none;
 }
-.edit-note::-webkit-scrollbar-thumb {
+.note-content::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: rgba(28, 67, 72, 0.9);
 }

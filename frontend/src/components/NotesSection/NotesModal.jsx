@@ -1,10 +1,11 @@
 import autosize from "autosize";
 import { format } from "date-fns";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useNotes } from "../../hooks/useNotes";
 const NotesModal = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
   const { handleCloseNoteModal, selectedNote, isUpdating, dispatch } =
     useNotes();
@@ -13,6 +14,7 @@ const NotesModal = () => {
   const handleKeyDown = (e) => {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
+    e.target.style.maxHeight = "300px";
   };
   useEffect(() => {
     autosize(noteRef.textarea);
@@ -29,7 +31,9 @@ const NotesModal = () => {
 
   const onFormSubmit = async (data) => {
     // console.log(data);
-
+    setValue("title", data.title);
+    setValue("content", data.content);
+    setIsLoading(true);
     const reqMethod = "PATCH";
     const url = `${import.meta.env.VITE_API_URL}/api/notes/${selectedNote._id}`;
     const response = await fetch(url, {
@@ -44,6 +48,7 @@ const NotesModal = () => {
     const json = response.json();
 
     if (response.ok) {
+      setIsLoading(false);
       handleCloseNoteModal();
       dispatch({
         type: "UPDATE_NOTE",
@@ -57,6 +62,7 @@ const NotesModal = () => {
     }
 
     if (!response.ok) {
+      setIsLoading(false);
       console.log(json.error);
     }
   };
@@ -83,8 +89,8 @@ const NotesModal = () => {
             />
             <textarea
               type="text"
-              rows={15}
-              className="edit-note text-sm font-normal bg-transparent p-2 pb-1 overflow-hidden w-full overflow-y-scroll h-fit max-h-[420px] text-yellow-400/70 border-b border-yellow-400/50 outline-none placeholder:text-yellow-400/30"
+              className="note-content text-sm font-normal bg-transparent px-1 py-2 w-full text-yellow-400/70 border-b border-yellow-400/50 placeholder:text-yellow-400/30 outline-none overflow-auto resize-none"
+              rows={10}
               id="content"
               ref={noteRef}
               onKeyDown={handleKeyDown}
@@ -105,9 +111,16 @@ const NotesModal = () => {
               )}
             </div>
 
-            <button className="capitalize bg-yellow-400 font-medium px-3 py-2 rounded text-sky-900 hover:bg-opacity-60 hover:text-yellow-400 transition-colors">
+            <button
+              className={`capitalize bg-yellow-400 font-medium px-3 py-2 rounded text-sky-900 hover:bg-opacity-60 hover:text-yellow-400 transition-colors`}
+            >
               done
             </button>
+            {isLoading ? (
+              <span className="update-loader absolute top-1/2 right-1/2"></span>
+            ) : (
+              ""
+            )}
           </form>
         </>
       ) : (
