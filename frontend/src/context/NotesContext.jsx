@@ -10,7 +10,7 @@ const notesReducer = (state, action) => {
       };
     case "CREATE_NEW_NOTE":
       return {
-        notes: [action.payload, ...state?.notes],
+        notes: [action.payload, ...state.notes],
       };
     case "DELETE_NOTE":
       return {
@@ -39,8 +39,9 @@ const notesReducer = (state, action) => {
 };
 
 const notesState = {
-  notes: null,
+  notes: [],
 };
+
 const NotesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(notesReducer, notesState);
   const [showModal, setShowModal] = useState(false);
