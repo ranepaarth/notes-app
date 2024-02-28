@@ -28,7 +28,7 @@ const NotesInput = () => {
       toggleMainInput();
       return;
     }
-    console.log("started");
+    // console.log("started");
     setIsLoading(true);
     const reqMethod = "POST";
     const url = `${import.meta.env.VITE_API_URL}/api/notes`;
@@ -42,8 +42,8 @@ const NotesInput = () => {
     });
 
     const json = await response.json();
-    console.log(json);
-    console.log("ended");
+    // console.log(json);
+    // console.log("ended");
 
     if (response.ok) {
       toggleMainInput();

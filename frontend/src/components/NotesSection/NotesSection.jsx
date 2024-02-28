@@ -43,7 +43,7 @@ const NotesSection = () => {
         console.log(json.error);
       }
     };
-    console.log("outside");
+    // console.log("outside");
     if (user) getNotes();
   }, [user]);
 
