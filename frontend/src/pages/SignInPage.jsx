@@ -23,6 +23,7 @@ const SignInPage = () => {
     register,
     reset,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -32,6 +33,11 @@ const SignInPage = () => {
     },
   });
   const [showPwd, setShowPwd] = useState(false);
+
+  const getCredentials = () => {
+    setValue("email", "test3@test.com");
+    setValue("password", "Test@123");
+  };
 
   const toggleShowPwd = () => {
     setShowPwd((prev) => !prev);
@@ -54,10 +60,6 @@ const SignInPage = () => {
             linkToPage={"Create new account"}
           />
           <FormMain handleSubmit={handleSubmit} onFormSubmit={onFormSubmit}>
-            <span className="flex items-center text-sm bg-yellow-950/10 h-8 px-2 font-medium text-yellow-950/90 divide-x divide-yellow-950/40">
-              <span className="px-2">test3@test.com</span>
-              <span className="px-2">Test@123</span>
-            </span>
             <FormInput
               Icon={<MdOutlineAlternateEmail />}
               type={"text"}
@@ -78,7 +80,17 @@ const SignInPage = () => {
               toggleShowPwd={toggleShowPwd}
               showPwd={showPwd}
             />
-            <FormSubmitBtn />
+            <div className="w-full flex items-center justify-between">
+              <EmptyLine width={"w-[60%]"} />
+              <button
+                type="button"
+                className="whitespace-nowrap mx-2 px-2 bg-yellow-950/60 py-1 rounded text-yellow-300/70 border-2 border-transparent hover:border-yellow-950 transition-colors"
+                onClick={getCredentials}
+              >
+                Credentials
+              </button>
+              <FormSubmitBtn />
+            </div>
             {serverError ? (
               <span className="text-lg md:text-sm text-red-600 font-medium bg-red-500/30 px-4 py-1 rounded border border-red-700">
                 {serverError}
