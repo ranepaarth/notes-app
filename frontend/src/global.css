@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  @apply bg-yellow-500 font-poppins;
+  @apply bg-yellow-500/95 font-poppins;
 }
 .logo {
   @apply text-xl font-bold cursor-pointer hover:scale-110;
