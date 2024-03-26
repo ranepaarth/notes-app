@@ -25,6 +25,10 @@ const createNotesController = async (req, res) => {
 const updateNotesController = async (req, res) => {
   const { id } = req.params;
   try {
+    const note = await Notes.findById(id);
+    if (note?.content === req.body) {
+      return res.status(200);
+    }
     const updatedNotes = await Notes.findByIdAndUpdate(id, { $set: req.body });
     // console.log(updatedNotes);
     res.status(200).json(updatedNotes);
